@@ -10,26 +10,64 @@ class JaggedArray():
             for i in range(self.rows):
                 self.jArray.append([])
 
-    def append(self, value, row):
-        if isinstance(row, int) and row in range(self.rows):
-            size = len(self.jArray[row])
-            new_row = [ None for i in range(size+1)]
-            for i in range(size+1):
-                if i == size:
-                    new_row[i] = value
-                else: 
-                    new_row[i] = self.jArray[row][i]
-            self.jArray[row] = new_row
-        else: 
+    def append(self, value, row:int):
+        if not isinstance(row, int): 
+            print('IndexError: row index {} is invalid'.format(row))
+            return self.jArray
+
+        if row not in range(self.rows):
             print('IndexError: row index {} is out of bounds'.format(row))
+            return self.jArray
+        
+        size = len(self.jArray[row])
+        new_row = [ None for i in range(size+1)]
+        for i in range(size+1):
+            if i == size:
+                new_row[i] = value
+            else: 
+                new_row[i] = self.jArray[row][i]
+        self.jArray[row] = new_row
+
+        return self.jArray
+            
+
+    def deleteAt(self, row, col):
+        if not isinstance(row, int): 
+            print('IndexError: row index {} is invalid'.format(row))
+            return self.jArray
+
+        if row not in range(self.rows):
+            print('IndexError: row index {} is out of bounds'.format(row))
+            return self.jArray
+        
+        if not isinstance(col, int): 
+            print('IndexError: column index {} is invalid'.format(col))
+            return self.jArray
+
+        if col not in range(len(self.jArray[row])):
+            print('IndexError: column index {} is out of bounds'.format(col))
+            return self.jArray
+        
+        size = len(self.jArray[row])
+        new_row = [self.jArray[row][i] for i in range(size) if i != col]
+        self.jArray[row] = new_row
+        return self.jArray
+
 
     def deleteLastOf(self, row):
-        if isinstance(row, int) and row in range(self.rows):
-            size = len(self.jArray[row])
-            new_row = [self.jArray[row][i] for i in range(size-1)]
-            self.jArray[row] = new_row
-        else: 
+        if not isinstance(row, int): 
+            print('IndexError: row index {} is invalid'.format(row))
+            return self.jArray
+
+        if row not in range(self.rows):
             print('IndexError: row index {} is out of bounds'.format(row))
+            return self.jArray
+
+        size = len(self.jArray[row])
+        new_row = [self.jArray[row][i] for i in range(size-1)]
+        self.jArray[row] = new_row
+        return self.jArray
+
 
     def lengths(self):
         lengths = []
@@ -47,13 +85,13 @@ class JaggedArray():
 
 j_array = JaggedArray(3)
 print()
-print('Initializing Jagged Array with 3 rows')
+print('Initializing Jagged Array with 3 rows...')
 j_array.lengths()
 print()
 j_array.print()
 
 print()
-print('Appending 5 in row 1:')
+print('Appending 5 in row 1...')
 j_array.append(5, 1)
 print()
 j_array.lengths()
@@ -61,7 +99,7 @@ print()
 j_array.print()
 
 print()
-print('Appending 10 in row 3:')
+print('Appending 10 in row 3...')
 j_array.append(10, 3)
 print()
 j_array.lengths()
@@ -69,7 +107,7 @@ print()
 j_array.print()
 
 print()
-print('Appending 10 in row 2:')
+print('Appending 10 in row 2...')
 j_array.append(10, 2)
 print()
 j_array.lengths()
@@ -85,7 +123,7 @@ print()
 j_array.print()
 
 print()
-print('Appending 10 in row 2:')
+print('Appending 10 in row 2...')
 j_array.append(1, 0)
 print()
 j_array.lengths()
@@ -93,8 +131,16 @@ print()
 j_array.print()
 
 print()
-print('Deleting the last element in row 0:')
+print('Deleting the last element in row 0...')
 j_array.deleteLastOf(0)
+print()
+j_array.lengths()
+print()
+j_array.print()
+
+print()
+print('Deleting the element at index 0 in row 1...')
+j_array.deleteAt(1, 0)
 print()
 j_array.lengths()
 print()
