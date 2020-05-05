@@ -67,6 +67,25 @@ class JaggedArray():
         new_row = [self.jArray[row][i] for i in range(size-1)]
         self.jArray[row] = new_row
         return self.jArray
+    
+    def elementAt(self, row, col):
+        if not isinstance(row, int): 
+            print('IndexError: row index {} is invalid'.format(row))
+            return self.jArray
+
+        if row not in range(self.rows):
+            print('IndexError: row index {} is out of bounds'.format(row))
+            return self.jArray
+        
+        if not isinstance(col, int): 
+            print('IndexError: column index {} is invalid'.format(col))
+            return self.jArray
+
+        if col not in range(len(self.jArray[row])):
+            print('IndexError: column index {} is out of bounds'.format(col))
+            return self.jArray
+        
+        return self.jArray[row][col]
 
 
     def lengths(self):
@@ -148,7 +167,7 @@ j_array.print()
 
 print()
 print('Accessing the first element of row 2...')
-print('The first element is: {}'.format(j_array.jArray[2][0]))
+print('The first element is: {}'.format(j_array.elementAt(2, 0)))
 print()
 j_array.lengths()
 print()
