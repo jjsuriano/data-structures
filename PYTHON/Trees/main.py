@@ -53,7 +53,7 @@ def main():
     tree.add(root, 12)
     tree.display(root)
     print()
-    print("The tree has {} levels.".format(tree.levels(root)))
+    print("The tree has a height of {} levels.".format(tree.height(root)))
 
 if __name__ == "__main__":
     main()

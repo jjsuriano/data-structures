@@ -26,6 +26,7 @@ class BinaryTree:
 # 50
 #         25
 #                 0
+# inorder traversal starting on the right side (right, root, left)
     def display(self, root: Node, level=0):
         if root is None:
             return
@@ -35,14 +36,14 @@ class BinaryTree:
             print(("\t"*level) + str(root.data))
             print()
             self.display(root.children[0], level)
-            
 
 # determine the total number of levels the tree has
-    def levels(self, root: Node, level=0):
+# a tree's height
+    def height(self, root: Node, level=0):
         if root is None:
             return level
         else:
             level += 1
-            left = self.levels(root.children[0], level)
-            right = self.levels(root.children[1], level)
+            left = self.height(root.children[0], level)
+            right = self.height(root.children[1], level)
         return max(left, right)
