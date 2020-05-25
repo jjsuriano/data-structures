@@ -1,2 +1,8 @@
+from node import Node
+
 class BinaryTree:
-    pass
+    def __init__(self, node: Node):
+        self.root = node
+
+    def add(self, node: Node):
+        pass

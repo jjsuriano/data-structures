@@ -1,5 +1,5 @@
 class Node:
-    def __init__(self, data, numOfChildren=1):
+    def __init__(self, data, numOfChildren=0):
         self.data = data
         self.children = []
         for i in range(0, numOfChildren):
