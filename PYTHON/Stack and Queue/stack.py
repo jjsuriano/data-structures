@@ -6,6 +6,12 @@ class Stack:
     def __init__(self):
         self.items = []
 
+    def isEmpty(self):
+        return self.items == []
+    
+    def size(self):
+        return len(self.items)
+
     def push(self, item):
         self.items.append(item)
         return self.items
@@ -26,12 +32,6 @@ class Stack:
                 print("Removing {} from stack...".format(self.pop()), end=" ")
                 print("Done.")
         print()
-
-    def isEmpty(self):
-        return self.items == []
-    
-    def size(self):
-        return len(self.items)
 
     def display(self):
         if self.isEmpty():
