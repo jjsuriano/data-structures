@@ -100,8 +100,6 @@ class JaggedArray():
         for i in range(self.rows):
             print(self.jArray[i])
 
-
-
 j_array = JaggedArray(3)
 print()
 print('Initializing Jagged Array with 3 rows...')
