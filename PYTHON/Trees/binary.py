@@ -1,21 +1,29 @@
-from node import Node
 import math
 
+class Node:
+    def __init__(self, item=None):
+        self.data = item
+        self.left = self.right = None
+
+
 class BinaryTree:
-    def __init__(self, node: Node):
-        self.root = node
+    def __init__(self, item):
+        self.root = Node(item)
 
 # add a node to the tree
-    def add(self, current: Node, data: int):
+    def __add__(self, item):
+        self._insert(self.root, item)
+
+    def _insert(self, current: Node, data: int):
         if current is None:
-            return Node(data, 2)
+            return Node(data)
         
         if data < current.data:
-            current.children[0] = self.add(current.children[0], data)
+            current.left = self._insert(current.left, data)
         elif data > current.data:
-            current.children[1] = self.add(current.children[1], data)
+            current.right = self._insert(current.right, data)
         else: 
-            print("Unable to add node to the tree\n")
+            print("Unable to insert, value already in the tree")
         return current
     
 # display the tree
@@ -27,23 +35,35 @@ class BinaryTree:
 #         25
 #                 0
 # inorder traversal starting on the right side (right, root, left)
-    def display(self, root: Node, level=0):
+    
+    def __str__(self):
+        height = len(self)
+        display = "BinaryTree has " +  str(height) + " levels." + "\n" if height != 1 else "BinaryTree has " +  str(height) + " level." + "\n"
+        return display + self._display(self.root)
+
+    def _display(self, root: Node, level=0, result=""):
+        if root is None:
+            return ""
+        result = self._display(root.right, level+1, result) + "\t"*level + str(root.data) + '\n' + self._display(root.left, level+1, result)
+        return result
+
+    def __repr__(self):
+        return f"BinaryTree({self._inorder(self.root)})"
+
+    def _inorder(self, root: Node, items=[]):
         if root is None:
             return
-        else:
-            level += 1
-            self.display(root.children[1], level)
-            print(("\t"*level) + str(root.data))
-            print()
-            self.display(root.children[0], level)
+        self._inorder(root.left, items)
+        items.append(root.data)
+        self._inorder(root.right, items)
+        return items
 
 # determine the total number of levels the tree has
 # a tree's height
-    def height(self, root: Node, level=0):
+    def __len__(self):
+        return self._height(self.root)
+
+    def _height(self, root: Node):
         if root is None:
-            return level
-        else:
-            level += 1
-            left = self.height(root.children[0], level)
-            right = self.height(root.children[1], level)
-        return max(left, right)
+            return 0
+        return 1 + max(self._height(root.left), self._height(root.right))
